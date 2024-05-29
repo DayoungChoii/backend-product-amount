@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PriceValidatorTest {
 
     @Test
-    void priceValidateTest() {
+    void price_validate_test() {
         //given
         int originPrice = 10_000;
         int discountPrice = 20_000;
@@ -30,7 +30,7 @@ class PriceValidatorTest {
     }
 
     @Test
-    void priceUnderThousandCutWhenFinalPriceIsOverThousandTest() {
+    void price_under_thousand_cut_when_final_price_is_over_thousand_test() {
         //given
         int originPrice = 10_000;
         int discountPrice = 100;
@@ -44,7 +44,7 @@ class PriceValidatorTest {
     }
 
     @Test
-    void priceUnderThousandCutWhenFinalPriceIsUnderThousandTest() {
+    void price_under_thousand_cut_when_final_price_is_under_thousand_test() {
         //given
         int originPrice = 1_000;
         int discountPrice = 100;

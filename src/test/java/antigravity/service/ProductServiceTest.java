@@ -14,9 +14,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+
+import static org.assertj.core.api.Assertions.*;
 
 
 @SpringBootTest
+@ActiveProfiles("test")
 class ProductServiceTest {
 
     @Autowired
@@ -31,15 +35,19 @@ class ProductServiceTest {
     @Autowired
     PromotionProductsRepository promotionProductsRepository;
 
+    private final int ORIGIN_PRICE = 215_000;
+    private final int COUPON_DISCOUNT_VALUE = 30_000;
+    private final int CODE_DISCOUNT_VALUE = 15;
+
     @BeforeEach
     void before() {
         Promotion couponPromotion = Promotion.builder()
                 .promotion_type(PromotionType.COUPON)
-                .discount_value(30_000)
+                .discount_value(COUPON_DISCOUNT_VALUE)
                 .build();
         Promotion codePromotion = Promotion.builder()
                 .promotion_type(PromotionType.CODE)
-                .discount_value(15)
+                .discount_value(CODE_DISCOUNT_VALUE)
                 .build();
 
         promotionRepository.save(couponPromotion);
@@ -47,7 +55,7 @@ class ProductServiceTest {
 
         Product product = Product.builder()
                 .name("피팅노드상품")
-                .price(215000)
+                .price(ORIGIN_PRICE)
                 .build();
 
         productRepository.save(product);

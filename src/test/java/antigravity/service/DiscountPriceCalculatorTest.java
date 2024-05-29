@@ -10,17 +10,21 @@ import java.util.List;
 
 class DiscountPriceCalculatorTest {
 
+    private final int ORIGIN_PRICE = 215_000;
+    private final int COUPON_DISCOUNT_VALUE = 30_000;
+    private final int CODE_DISCOUNT_VALUE = 15;
+
     @Test
     void calculateTest() {
         //given
-        int originPrice = 215_000;
+        int originPrice = ORIGIN_PRICE;
         Promotion couponPromotion = Promotion.builder()
                 .promotion_type(PromotionType.COUPON)
-                .discount_value(30_000)
+                .discount_value(COUPON_DISCOUNT_VALUE)
                 .build();
         Promotion codePromotion = Promotion.builder()
                 .promotion_type(PromotionType.CODE)
-                .discount_value(15)
+                .discount_value(CODE_DISCOUNT_VALUE)
                 .build();
 
         List<Promotion> promotions = new ArrayList<>();

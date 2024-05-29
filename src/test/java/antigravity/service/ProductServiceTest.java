@@ -16,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import static org.assertj.core.api.Assertions.*;
 
 
@@ -41,13 +44,21 @@ class ProductServiceTest {
 
     @BeforeEach
     void before() {
+
+        Date startedAt = getDateWithMonthOffset(Calendar.MONTH, -1);
+        Date endedAt = getDateWithMonthOffset(Calendar.MONTH, 1);
+
         Promotion couponPromotion = Promotion.builder()
                 .promotion_type(PromotionType.COUPON)
                 .discount_value(COUPON_DISCOUNT_VALUE)
+                .use_started_at(startedAt)
+                .use_ended_at(endedAt)
                 .build();
         Promotion codePromotion = Promotion.builder()
                 .promotion_type(PromotionType.CODE)
                 .discount_value(CODE_DISCOUNT_VALUE)
+                .use_started_at(startedAt)
+                .use_ended_at(endedAt)
                 .build();
 
         promotionRepository.save(couponPromotion);
@@ -98,5 +109,11 @@ class ProductServiceTest {
         assertThat(productAmount.getDiscountPrice()).isEqualTo("62,250");
         assertThat(productAmount.getFinalPrice()).isEqualTo("152,000");
 
+    }
+
+    private Date getDateWithMonthOffset(int field, int offset) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(field, offset);
+        return new Date(calendar.getTimeInMillis());
     }
 }

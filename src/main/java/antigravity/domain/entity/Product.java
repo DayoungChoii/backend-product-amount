@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import static antigravity.constant.ProductConstant.*;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,6 +22,6 @@ public class Product {
     private int price;
 
     public Boolean isOutOfPriceRange() {
-        return price <1_000 && price > 10_000_000;
+        return price < MINIMUM_PRICE || price > MAXIMUM_PRICE;
     }
 }
